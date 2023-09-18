@@ -1,0 +1,48 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+void  main()
+{
+	fstream* files = new fstream[7];
+	fstream f("text.txt");
+	int flag = 0;
+	string s1, s2;
+	string file_names[7] = { "adjectives.txt","adverbs.txt","articles.txt","nouns.txt","preposition.txt","pronouns.txt","verbs.txt" };
+
+	for (int j = 0; j < 7; j++)
+	{
+		files[j].open(file_names[j]);
+	}
+
+	while (f.eof() == 0())
+	{
+		f >> s1;
+		flag = 0;
+
+		for (int i = 0; i < 7; i++)
+		{
+			files[i].seekg(0, ios::beg); //files[i].seekg(0, ios::beg); sets the file pointer for the i-th file to the beginning of the file, allowing you to re-read the file from the start.
+			while (files[i].eof() == 0)
+			{
+				files[i] >> s2;
+
+				if (s1 == s2)
+				{
+					cout << " < " << file_names[i] << "  ," << s1 << " > \n" << endl;
+					flag = 1;
+					break;
+				}
+			}
+			if (flag == 1)
+			{
+				break;
+			}
+
+		}
+		if (flag == 0)
+		{
+			cout <<" < Error , " << s1 << " >  not found \n\n";
+		}
+	}
+}

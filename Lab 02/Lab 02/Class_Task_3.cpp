@@ -41,6 +41,10 @@ int main()
 				}
 			}
 		}
+		
+	}
+	if (mc) {
+		cout << " the whole lines are Multi Commented without ending tag" << endl;
 	}
 
 

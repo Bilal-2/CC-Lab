@@ -1,0 +1,39 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+void  main()
+{
+	string host, user_name, time, request_type;
+	string text;
+	fstream f1("logdata.txt");
+	ofstream f2("filename.txt");
+	// Write to the file
+	while (getline(f1, text))
+	{
+		int i = 0, string_length = text.length(), pos_host_end = text.find("-"), pos_user_name_end = text.find("["), pos_time_end = text.find("]"), pos_request_end = text.rfind("\"");		
+//rfind is used to find last occurence of character in string;
+
+		f2 << "{ ";
+			host = text.substr(i,pos_host_end);
+			i = pos_host_end+1;
+			f2 << " host : " << host << "\n";
+
+			user_name = text.substr(i, pos_user_name_end-i-2);
+			i = pos_user_name_end+1;
+			f2 << " user name : " << user_name << "\n";
+
+			time = text.substr(i, pos_time_end - i);
+			i = pos_time_end+1;
+			f2 << " time : " << time << "\n";
+
+			request_type = text.substr(i, pos_request_end - i+1);
+			f2 << " request type : " << request_type << "\n";
+
+
+		
+		f2 << " } \n\n";
+
+	}
+
+}
