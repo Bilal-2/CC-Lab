@@ -24,5 +24,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="comments.txt" />
+    <Text Include="il.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>
