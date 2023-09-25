@@ -1,12 +1,12 @@
 
 
-<using namespace std;
+using namespace std;
 
 
 
 int main()
 {
-	int a=1;
+	<<int a=1;
 	a=2;
 	b=3;
 	c=5;>
