@@ -1,0 +1,7 @@
+﻿  Task.cpp
+E:\Bilal\CC-Lab\Lab Mid\Lab Mid\Task.cpp(40,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+E:\Bilal\CC-Lab\Lab Mid\Lab Mid\Task.cpp(273,3): error C3861: 'Ed': identifier not found
+E:\Bilal\CC-Lab\Lab Mid\Lab Mid\Task.cpp(280,3): error C3861: 'Ed': identifier not found
+E:\Bilal\CC-Lab\Lab Mid\Lab Mid\Task.cpp(326,3): error C3861: 'E': identifier not found
+  Task1.cpp
+  Generating Code...

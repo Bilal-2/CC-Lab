@@ -1,0 +1,29 @@
+def is_operator(c):
+    return c in "+-*/"
+
+def evaluate_postfix(postfix_expression):
+    stack = []
+    tokens = postfix_expression.split()
+
+    for token in tokens:
+        if is_operator(token):
+            b = stack.pop()
+            a = stack.pop()
+            if token == '+':
+                result = a + b
+            elif token == '-':
+                result = a - b
+            elif token == '*':
+                result = a * b
+            elif token == '/':
+                result = a / b
+            stack.append(result)
+        else:
+            stack.append(float(token))
+
+    return stack[0]
+
+# Example usage:
+postfix_expression = "2 3 + 4 *"
+result = evaluate_postfix(postfix_expression)
+print(f"Result: {result}")

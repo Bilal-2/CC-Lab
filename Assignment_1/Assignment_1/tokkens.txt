@@ -1,0 +1,5 @@
+int ID OP Il PN
+float ID OP FL PN
+float ID OP FL OP Il PN
+ID ID OP SL PN
+ID OP 

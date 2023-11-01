@@ -1,0 +1,30 @@
+def is_operator(c):
+    return c in "+-*/"
+
+def evaluate_prefix(prefix_expression):
+    stack = []
+    tokens = prefix_expression.split()
+    tokens.reverse()
+
+    for token in tokens:
+        if is_operator(token):
+            a = stack.pop()
+            b = stack.pop()
+            if token == '+':
+                result = a + b
+            elif token == '-':
+                result = a - b
+            elif token == '*':
+                result = a * b
+            elif token == '/':
+                result = a / b
+            stack.append(result)
+        else:
+            stack.append(float(token))
+
+    return stack[0]
+
+# Example usage:
+prefix_expression = "* + 2 3 4"
+result = evaluate_prefix(prefix_expression)
+print(f"Result: {result}")

@@ -1,0 +1,157 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cctype>
+using namespace std;
+
+// Token types
+enum TokenType {
+	IF, ELSE, ID, INTLITERAL, LESSTHAN, GREATERTHAN, LPAREN, RPAREN, SEMICOLON, EOI
+};
+
+// Token structure
+struct Token {
+	TokenType type;
+	string lexeme;
+};
+
+class Lexer {
+public:
+	Lexer(const string& input) : input(input), position(0) {}
+
+	Token getNextToken() {
+		if (position >= input.length()) {
+			return { EOI, "" };
+		}
+
+		char currentChar = input[position];
+		if (currentChar == ' ') {
+			position++;
+			return getNextToken();
+		}
+
+		if (currentChar == 'i') {
+			if (input.compare(position, 2, "if") == 0) {
+				position += 2;
+				return { IF, "if" };
+			}
+		}
+		else if (currentChar == 'e') {
+			if (input.compare(position, 4, "else") == 0) {
+				position += 4;
+				return { ELSE, "else" };
+			}
+		}
+		else if (isalpha(currentChar)) {
+			string id;
+			while (isalnum(input[position])) {
+				id += input[position];
+				position++;
+			}
+			return { ID, id };
+		}
+		else if (isdigit(currentChar)) {
+			std::string intLiteral;
+			while (isdigit(input[position])) {
+				intLiteral += input[position];
+				position++;
+			}
+			return { INTLITERAL, intLiteral };
+		}
+		else if (currentChar == '>') {
+			position++;
+			return { GREATERTHAN, ">" };
+		}
+		else if (currentChar == '<') {
+			position++;
+			return { LESSTHAN, "<" };
+		}
+		else if (currentChar == '(') {
+			position++;
+			return { LPAREN, "(" };
+		}
+		else if (currentChar == ')') {
+			position++;
+			return { RPAREN, ")" };
+		}
+		else if (currentChar == ';') {
+			position++;
+			return { SEMICOLON, ";" };
+		}
+		else {
+			
+		}
+
+		return { EOI, "" };
+	}
+
+private:
+	const string input;
+	size_t position;
+};
+
+class Parser {
+public:
+	Parser(const string& input) : lexer(input), currentToken(lexer.getNextToken()) {}
+
+	void stmt() {
+		if (currentToken.type == IF) {
+			match(IF);
+			match(LPAREN);
+			bexp();
+			match(RPAREN);
+			stmt();
+			if (currentToken.type == ELSE) {
+				match(ELSE);
+				stmt();
+			}
+		}
+		else if (currentToken.type == ID) {
+			match(ID);
+		}
+	}
+
+	void bexp() {
+		if (currentToken.type == ID || currentToken.type == INTLITERAL) {
+			match(currentToken.type);
+		}
+		else if (currentToken.type == GREATERTHAN || currentToken.type == LESSTHAN) {
+			match(currentToken.type);
+			bexp();
+		}
+		else {
+			// Handle errors or other cases.
+		}
+	}
+
+	void match(TokenType expectedType) {
+		if (currentToken.type == expectedType) {
+			currentToken = lexer.getNextToken();
+		}
+		else {
+			// Handle mismatch or errors.
+		}
+	}
+
+	void parse() {
+		stmt();
+		if (currentToken.type == EOI) {
+			std::cout << "Parsed successfully!" << std::endl;
+		}
+		else {
+			std::cout << "Syntax error!" << std::endl;
+		}
+	}
+
+private:
+	Lexer lexer;
+	Token currentToken;
+};
+
+int main() {
+	std::string input;
+	std	::cin >> input;
+	Parser parser(input);
+	parser.parse();
+	return 0;
+}
